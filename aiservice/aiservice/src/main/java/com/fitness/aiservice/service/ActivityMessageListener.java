@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class ActivityMessageListener {
+    private final ActivityAiService aiService;
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity){
     log.info("received activity for processing: {}",activity.getId());
+    log.info("processed activity: {}",aiService.generateRecommendation(activity));
+
     }
 }
